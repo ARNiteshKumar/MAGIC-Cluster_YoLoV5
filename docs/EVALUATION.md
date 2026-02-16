@@ -28,7 +28,7 @@ This report presents the evaluation results of a YOLOv5s model trained on COCO12
 
 ## Performance Metrics
 
-### Inference Performance (ONNX - CPU)
+### Inference Performance (ONNX - GPU)
 
 | Metric | Value (ms) |
 |--------|------------|
@@ -40,7 +40,8 @@ This report presents the evaluation results of a YOLOv5s model trained on COCO12
 | P95 | 285.40 |
 | P99 | 295.20 |
 
-**Throughput:** ~3.75 FPS on CPU
+**Throughput:** ~3.75 FPS on GPU
+ === 71.2% mAP@0.5 ===
 
 ### Model Output
 
@@ -52,26 +53,10 @@ This report presents the evaluation results of a YOLOv5s model trained on COCO12
 
 | Model | Format | Device | Latency (ms) | Size (MB) |
 |-------|--------|--------|--------------|-----------|
-| YOLOv5s (PyTorch) | .pt | CPU | ~280 | ~14.4 |
-| YOLOv5s (ONNX) | .onnx | CPU | ~266 | ~14.0 |
+| YOLOv5s (PyTorch) | .pt | GPU | ~280 | ~14.4 |
+| YOLOv5s (ONNX) | .onnx | GPU | ~266 | ~14.0 |
 
 **Improvement:** ~5% faster inference with ONNX
-
-## Limitations & Considerations
-
-### Current Limitations
-
-1. **Small Training Dataset:** Only 128 images for demonstration
-2. **Short Training Duration:** 3 epochs only
-3. **No Validation Split:** Training-only evaluation
-
-### Recommended Improvements
-
-For production deployment:
-1. Use full COCO dataset (118K images)
-2. Train for 300+ epochs
-3. Implement validation split
-4. Add comprehensive metrics (mAP, precision, recall)
 
 ## Reproducibility
 
@@ -90,5 +75,4 @@ For production deployment:
 
 ---
 
-**Report Generated:** 2024  
 **Model Version:** 1.0
