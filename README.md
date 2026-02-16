@@ -140,7 +140,7 @@ docker run -it --rm \
 - Batch Size: 16
 - Image Size: 640x640
 
-### Inference Latency (CPU)
+### Inference Latency (GPU)
 - Mean: ~266 ms
 - P95: ~280 ms
 - P99: ~290 ms
@@ -195,9 +195,9 @@ This project is licensed under the MIT License - see the LICENSE file for detail
 
 ## 📧 Contact
 
-For questions or issues, please open a GitHub issue or contact [your.email@example.com].
+For questions or issues, please open a GitHub issue or contact [www.linkedin.com/in/arniteshkumar].
 
-## 🔗 Links
+## E-Mail: arniteshkumar@gmail.com
 
 - [YOLOv5 Documentation](https://docs.ultralytics.com/)
 - [ONNX Runtime](https://onnxruntime.ai/)
