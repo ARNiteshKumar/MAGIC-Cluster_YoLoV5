@@ -191,7 +191,7 @@ For issues or questions:
 
 ---
 
-**Last Updated:** 2024  
+**Last Updated:** 2026 
 **Version:** 1.0
 ```
 
@@ -212,14 +212,10 @@ This creates the artifacts folder structure.
 
 ---
 
-## 🎊 ALL FILES COMPLETE! Now Let's Commit Everything
-
-You should now have **20 pending changes** (shown in Source Control icon on left).
-
-### Final Step: Commit & Push
 
 1. **Click the Source Control icon** (left sidebar - 3rd icon, looks like branches)
 2. You'll see **20 changes** listed
 3. **At the top**, in the message box, type:
 ```
+
    Initial commit: Complete YOLOv5 model export pipeline with training, inference, and documentation
