@@ -12,11 +12,15 @@ matplotlib>=3.2.2
 seaborn>=0.11.0
 pandas>=1.1.4
 scipy>=1.4.1
+requests>=2.23.0
 
 # Model export and inference
 onnx>=1.12.0
 onnxruntime>=1.15.0
 onnxsim>=0.4.13
+
+# COCO evaluation
+pycocotools>=2.0.6
 
 # Utilities
 tensorboard>=2.4.1
