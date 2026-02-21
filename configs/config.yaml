@@ -1,10 +1,10 @@
-# YOLOv5 Model Export Configuration
+# YOLOv5 Model Export & Evaluation Configuration
 
 model:
   name: yolov5s
   weights: yolov5s.pt
   architecture: yolov5
-  
+
 training:
   dataset: coco128
   img_size: 640
@@ -13,20 +13,32 @@ training:
   device: 0  # GPU device, or 'cpu'
   workers: 8
   cache: true
-  
+
 export:
   format: onnx
   opset: 17
   dynamic: false
   simplify: true
   img_size: 640
-  
+
 inference:
   conf_threshold: 0.25
   iou_threshold: 0.45
   max_detections: 1000
   device: cpu
-  
+  img_size: 640
+  save_images: true            # save annotated output images
+  output_dir: results/inference
+
+evaluation:
+  # COCO val2017 evaluation settings
+  dataset: coco                # coco | coco128
+  coco_dir: data/coco
+  conf_threshold: 0.001        # low conf for eval to sweep recall curve
+  iou_nms: 0.6
+  iou_eval: 0.5                # TP matching threshold
+  max_images: null             # null = full dataset, integer = subset
+
 paths:
   data_dir: ./data
   weights_dir: ./artifacts/models
