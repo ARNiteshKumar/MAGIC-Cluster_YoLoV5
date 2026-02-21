@@ -1,47 +1,41 @@
 #!/bin/bash
-# ============================================================
-# Inference script — YOLOv5 PyTorch / ONNX
+# ─────────────────────────────────────────────────────────────────────────────
+# Unified inference runner — supports single-image and COCO evaluation modes
 #
 # Usage:
-#   bash scripts/infer.sh [MODEL] [SOURCE] [OUTPUT_DIR] [CONF] [IOU]
+#   bash scripts/infer.sh [--eval] [extra args passed to infer.py]
 #
 # Examples:
-#   # ONNX inference
-#   bash scripts/infer.sh yolov5s.onnx data/images/ results/inference
+#   # Single image (PyTorch + ONNX, saves bbox images to results/bbox_outputs/)
+#   bash scripts/infer.sh \
+#       --pt-weights  artifacts/models/yolov5s.pt \
+#       --onnx-weights artifacts/exports/yolov5s.onnx \
+#       --image data/coco128/images/train2017/000000000009.jpg
 #
-#   # PyTorch inference
-#   bash scripts/infer.sh yolov5s.pt  data/images/ results/inference
-#
-#   # Single image
-#   bash scripts/infer.sh yolov5s.onnx data/sample/dog.jpg results/inference
-# ============================================================
-
+#   # COCO val2017 evaluation
+#   bash scripts/infer.sh --eval \
+#       --pt-weights  artifacts/models/yolov5s.pt \
+#       --onnx-weights artifacts/exports/yolov5s.onnx \
+#       --coco-dir data/coco \
+#       --num-eval-images 5000
+# ─────────────────────────────────────────────────────────────────────────────
 set -e
 
-MODEL=${1:-"runs/train/exp/weights/best.onnx"}
-SOURCE=${2:-"data/coco128/images/train2017/"}
-OUTPUT_DIR=${3:-"results/inference"}
-CONF=${4:-0.25}
-IOU=${5:-0.45}
+echo "=========================================="
+echo "  YOLOv5 Unified Inference"
+echo "=========================================="
 
-echo "=================================================="
-echo " YOLOv5 Inference"
-echo "=================================================="
-echo "  Model      : $MODEL"
-echo "  Source     : $SOURCE"
-echo "  Output dir : $OUTPUT_DIR"
-echo "  Confidence : $CONF"
-echo "  IoU        : $IOU"
-echo "=================================================="
+# Default paths (override via CLI args)
+PT_WEIGHTS=${PT_WEIGHTS:-"artifacts/models/yolov5s.pt"}
+ONNX_WEIGHTS=${ONNX_WEIGHTS:-"artifacts/exports/yolov5s.onnx"}
+OUTPUT_DIR=${OUTPUT_DIR:-"results/bbox_outputs"}
+IMAGE=${IMAGE:-"data/coco128/images/train2017/000000000009.jpg"}
 
 python src/inference/infer.py \
-    --model "$MODEL" \
-    --source "$SOURCE" \
-    --output-dir "$OUTPUT_DIR" \
-    --conf "$CONF" \
-    --iou "$IOU" \
-    --benchmark \
-    --save-json "$OUTPUT_DIR/detections.json"
+    --pt-weights   "$PT_WEIGHTS" \
+    --onnx-weights "$ONNX_WEIGHTS" \
+    --output-dir   "$OUTPUT_DIR" \
+    "$@"
 
 echo ""
-echo "Done. Results saved to: $OUTPUT_DIR"
+echo "Done! Annotated images saved to: $OUTPUT_DIR"

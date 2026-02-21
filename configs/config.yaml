@@ -29,18 +29,34 @@ inference:
   img_size: 640
   save_images: true            # save annotated output images
   output_dir: results/inference
+  # Output folder for annotated bounding-box images
+  bbox_output_dir: ./results/bbox_outputs
+  # Number of COCO val images to run during evaluation (0 = all 5000)
+  num_eval_images: 5000
+  # Number of annotated images to save during COCO eval run
+  save_vis: 50
 
 evaluation:
   # COCO val2017 evaluation settings
   dataset: coco                # coco | coco128
-  coco_dir: data/coco
+  coco_dir: ./data/coco
   conf_threshold: 0.001        # low conf for eval to sweep recall curve
   iou_nms: 0.6
   iou_eval: 0.5                # TP matching threshold
   max_images: null             # null = full dataset, integer = subset
+  # Metrics to report
+  metrics:
+    - mAP@0.5
+    - mAP@0.5:0.95
+    - precision
+    - recall
+    - latency_ms
+  # MSE comparison between PyTorch and ONNX raw outputs
+  mse_comparison: true
 
 paths:
   data_dir: ./data
   weights_dir: ./artifacts/models
   export_dir: ./artifacts/exports
   results_dir: ./results
+  bbox_outputs: ./results/bbox_outputs
